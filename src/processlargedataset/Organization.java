@@ -10,6 +10,7 @@ package processlargedataset;
  * @author spreng
  */
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,6 +18,7 @@ public class Organization {
 
     public ArrayList<Employee> employees;
     double averageSalary;
+    DecimalFormat ft = new DecimalFormat("###,###.##");
 
     public Organization() {
     }
@@ -42,7 +44,7 @@ public class Organization {
     }
 
     public double getAverageSalary(Rank rank) {
-        
+
         int count = 0;
         for (Employee employee : employees) {
             if (employee.getRank() == rank) {
@@ -57,10 +59,19 @@ public class Organization {
         double totalSalary = 0;
         for (Employee e : employees) {
             if (e.getRank() == rank) {
-                totalSalary = +e.getSalary();
+                totalSalary +=e.getSalary();
             }
         }
         return totalSalary;
+    }
+    
+    public String salaryTostring(Rank rank){
+        String formattedTotal = ft.format(getTotalSalary(rank));
+        String formattedAVG = ft.format(getAverageSalary(rank));
+        System.out.println("\n");
+        System.out.println("Total Salary  | Average Salary" + " " + rank);
+        return formattedTotal + " " + "|" + " " + formattedAVG;
+        
     }
 
 }
